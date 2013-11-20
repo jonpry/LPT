@@ -16,3 +16,8 @@ Add the following options to your kernel config after applying the patch:
 * CONFIG\_PPDEV=m 
 
 A defconfig is included that may suit your purposes if you are running stock 3.8.13xenomai-bone28.1. 
+
+The scripts directory includes a script that will load the modules required for use as a standard printer port. 
+This script assumes the modules are located in the current directory and the gpmc_tool has been installed to the path. 
+If the modules are installed normally, edit the script to use modprobe instead. 
+
