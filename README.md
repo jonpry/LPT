@@ -9,7 +9,7 @@ make sure you are not doing unnecessary work.
 
    Subdirs:
 
-/kernel - Kernel driver patches and configs - Used for creating /dev/lp0 which is used by many userland parallel applications. 
-/sw - Userland software tools for setting up GPMC, bit banging and BIST
+* /kernel - Kernel driver patches and configs - Used for creating /dev/lp0 which is used by many userland parallel applications. 
+* /sw - Userland software tools for setting up GPMC, bit banging and BIST
 
 
