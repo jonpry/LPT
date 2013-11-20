@@ -9,10 +9,10 @@ the parallel driver is loaded.
 
 Add the following options to your kernel config after applying the patch:
 
-CONFIG_PARPORT=M
-CONFIG_PARPORT_BONE=m
-CONFIG_PARPORT_1284=y
-CONFIG_PRINTER=m
-CONFIG_PPDEV=m
+CONFIG\_PARPORT=M
+CONFIG\_PARPORT\_BONE=m
+CONFIG\_PARPORT\_1284=y
+CONFIG\_PRINTER=m
+CONFIG\_PPDEV=m
 
 A defconfig is included that may suit your purposes if you are running stock 3.8.13xenomai-bone28.1. 
