@@ -19,4 +19,4 @@ GPMC_TOOL
 
 GPMC_TOOL is an application that configures the gpmc controller after startup. Any application using the API including BIST can also serve this purpose. 
 Running this tool or another app which configures gpmc is necessary before loading the kernel drivers. 
-l
+

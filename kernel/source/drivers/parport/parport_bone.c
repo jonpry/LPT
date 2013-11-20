@@ -52,6 +52,20 @@ struct bone_drvdata {
 static LIST_HEAD(ports_list);
 static DEFINE_SPINLOCK(ports_lock);
 
+static int __initdata io[PARPORT_BONE_MAX_PORTS+1] = {
+	[0 ... PARPORT_BONE_MAX_PORTS] = 0
+};
+
+static int nports = 0;
+
+MODULE_PARM_DESC(io, "Base I/O address (SPP regs)");
+module_param_array(io, int, &nports, 0);
+
+static int delay = 1000;
+MODULE_PARM_DESC(delay,
+	"Control port readback delay(ns)");
+module_param(delay, int, 0);
+
 static inline struct bone_drvdata *pp_to_drv(struct parport *p)
 {
 	return p->private_data;
@@ -116,7 +130,7 @@ parport_bone_write_control(struct parport *p, unsigned char control)
 		cpr |= BONE_CPR_SLCTIN;
 
 //	printk(KERN_DEBUG "write_control: ctrl=%02x, cpr=%02x\n", control, cpr);
-	writeb(cpr, dd->spp_cpr); udelay(1);
+	writeb(cpr, dd->spp_cpr); ndelay(delay);
 
 	if (parport_bone_read_control(p) != cpr) {
 		printk(KERN_ERR "write_control: read != set (%02x, %02x)\n",
@@ -273,7 +287,7 @@ static int parport_bone_probe(struct platform_device *pdev)
 
 	size = SZ_4K;
 
-	printk(KERN_DEBUG "Mapping 0x%8.8X pg: 0x%8.8X\n", pdev->id, pdev->id & PAGE_MASK);  
+	printk(KERN_DEBUG "Mapping 0x%8.8X pg: 0x%8.8X\n", pdev->id, (unsigned)(pdev->id & PAGE_MASK));  
 
 	dd->base = ioremap(pdev->id & PAGE_MASK, size);
 	if (dd->base == NULL) {
@@ -344,15 +358,6 @@ static struct platform_driver parport_bone_driver = {
 		.owner	= THIS_MODULE,
 	},
 };
-
-static int __initdata io[PARPORT_BONE_MAX_PORTS+1] = {
-	[0 ... PARPORT_BONE_MAX_PORTS] = 0
-};
-
-static int nports = 0;
-
-MODULE_PARM_DESC(io, "Base I/O address (SPP regs)");
-module_param_array(io, int, &nports, 0);
 
 static int __init parport_bone_init(void)
 {
