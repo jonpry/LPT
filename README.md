@@ -10,6 +10,14 @@ make sure you are not doing unnecessary work.
    Subdirs:
 
 * /kernel - Kernel driver patches and configs - Used for creating /dev/lp0 which is used by many userland parallel applications. 
+* /dtbs - Device tree overlays
 * /sw - Userland software tools for setting up GPMC, bit banging and BIST
 
+LICENSING
+==
 
+   The various components of this project are licensed under different terms. The various subdirectories and files
+should include information about the separate licenses. The general scheme is that the kernel drivers are GPLv2. All
+other software components are BSD compatible. All documentation and schematics are CC-BY-SA 3.0. 
+
+		

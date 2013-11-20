@@ -1,0 +1,70 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "ti,beaglebone", "ti,beaglebone-black";
+
+	/* identification */
+	part-number = "BB-BONE-LPT";
+	version = "00A0";
+
+	/* state the resources this cape uses */
+	exclusive-use =
+		/* the pin header uses */
+		"P8.3",		/* gpmc_ad6	*/
+		"P8.4",		/* gpmc_ad7	*/
+		"P8.5",		/* gpmc_ad2	*/
+		"P8.6",		/* gpmc_ad3	*/
+		"P8.7",		/* gpmc_nadv	*/
+		"P8.8",		/* gpmc_noe	*/
+		"P8.10",	/* gpmc_wen	*/
+		"P8.18",	/* gpmc_clk	*/
+		"P8.22",	/* gpmc_ad5	*/
+		"P8.23",	/* gpmc_ad4	*/
+		"P8.24",	/* gpmc_ad1	*/
+		"P8.25",	/* gpmc_ad0	*/
+		"P8.26"		/* gpmc_ncs0	*/
+
+		/* the hardware IP uses */
+/* TODO: add gpmc? */
+		;
+
+	fragment@0 {
+		target = <&am33xx_pinmux>;
+		__overlay__ {
+
+			foo_pins: foo_pins {
+				pinctrl-single,pins = <
+					0x018 0x38	/* P8.3		gpmc_ad6 */
+					0x01c 0x38	/* P8.4		gpmc_ad7 */
+					0x008 0x38	/* P8.5		gpmc_ad2 */
+					0x00c 0x38	/* P8.6		gpmc_ad3 */
+					0x090 0x38	/* P8.7		gpmc_nadv*/
+					0x094 0x38	/* P8.8		gpmc_noe */
+					0x098 0x38	/* P8.10	gpmc_wen */
+					0x08c 0x38	/* P8.18	gpmc_clk */
+					0x014 0x38	/* P8.22	gpmc_ad5 */
+					0x010 0x38	/* P8.23	gpmc_ad4 */
+					0x004 0x38	/* P8.24	gpmc_ad1 */
+					0x000 0x38	/* P8.25	gpmc_ad0 */
+					0x07c 0x38	/* p8.26	gpmc_ncs0*/
+				>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&ocp>;
+		__overlay__ {
+			tester_pinmux_helper {
+ 				compatible = "bone-pinmux-helper";
+ 				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&foo_pins>;
+			};
+
+		};
+	};
+};
+
+
